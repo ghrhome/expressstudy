@@ -1,4 +1,5 @@
 var express = require('express');
+var fortune = require('./lib/fortune.js');
 
 var app = express();
 
@@ -12,14 +13,11 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(__dirname + '/public'));
 
-var fortune=require('./lib/fortune');
-
 app.get('/', function(req, res) {
 	res.render('home');
 });
 app.get('/about', function(req,res){
-	var randomFortune = fortune.getFortune();
-	res.render('about', { fortune: randomFortune });
+	res.render('about', { fortune: fortune.getFortune() } );
 });
 
 // 404 catch-all handler (middleware)
